@@ -5,6 +5,7 @@
       class=" flex lg:hidden top-0 w-full bg-gray-800 p-2 h-14 justify-end"
       style="z-index: 1000"
     >
+
       <router-link
         to="/search"
         class="items-center px-5 rounded-lg text flex space-x-2"
@@ -318,7 +319,9 @@
               v-if="tabs === 'personal'"
               class="flex flex-col space-y-3 mt-3"
             >
-              <router-link  :to="{ name: 'chatroom', params: { userId: '603e3837a4b3ec37988d6bd7' } }" class="flex rounded-md flex-row px-3 justify-around h-full items-center">
+            <template v-for="friend in friends">
+
+              <router-link v-bind:key="friend._id" :to="{ name: 'chatroom', params: { chatId:friend._id } }" class="flex rounded-md flex-row px-3 justify-around h-full items-center">
                 <div class="w-10 mr-2 h-16 flex items-center justify-center">
                   <img
                     class="h-8 w-8 rounded-full"
@@ -326,80 +329,17 @@
                     alt=""
                   />
                 </div>
-                <div class="w-full h-full flex flex-col justify-center">
-                  <h3 class="text text-lg">Sudana</h3>
+              
+                <div   class="w-full h-full flex flex-col justify-center">
+                  <h3 class="text text-lg">sudana</h3>
                   <p class="text text-xs">halow nyung</p>
                 </div>
+              
                 <div class="h-full w-10 flex items-center justify-center">
                   <div class="w-3 h-3 bg-green-500 rounded-full"></div>
                 </div>
               </router-link>
-             <router-link :to="{ name: 'chatroom', params: { userId: '603e3837a4b3ec37988d6b' } }" class="flex rounded-md flex-row px-3 justify-around h-full items-center">
-                <div class="w-10 mr-2 h-16 flex items-center justify-center">
-                  <img
-                    class="h-8 w-8 rounded-full"
-                    src="https://scontent.fdps5-1.fna.fbcdn.net/v/t1.0-9/37921553_1447009505400641_8037753745087397888_n.jpg?_nc_cat=102&ccb=2&_nc_sid=09cbfe&_nc_eui2=AeGtQb39GDHyatLPv2WwXJ7mVYo_Q_kCH55Vij9D-QIfnnCT6Fm91wF6uBz_L9QPrKiLJzAxlQ9qRaEa3L5EvcOt&_nc_ohc=ByijnzjSpmMAX_0lnnV&_nc_ht=scontent.fdps5-1.fna&oh=cafea5b87c15c4360e986c1e6fea3a88&oe=60468E5A"
-                    alt=""
-                  />
-                </div>
-                <div class="w-full h-full flex flex-col justify-center">
-                  <h3 class="text text-lg">Sudana</h3>
-                  <p class="text text-xs">halow nyung</p>
-                </div>
-                  <div class="h-full w-10 flex items-center justify-center">
-                  <div class="w-3 h-3 bg-green-500 rounded-full"></div>
-                </div>
-              </router-link>
-             <router-link :to="{ name: 'chatroom', params: { userId: '603e3837a4b3ec37988d6bd' } }" class="flex rounded-md flex-row px-3 justify-around h-full items-center">
-                <div class="w-10 mr-2 h-16 flex items-center justify-center">
-                  <img
-                    class="h-8 w-8 rounded-full"
-                    src="https://scontent.fdps5-1.fna.fbcdn.net/v/t1.0-9/37921553_1447009505400641_8037753745087397888_n.jpg?_nc_cat=102&ccb=2&_nc_sid=09cbfe&_nc_eui2=AeGtQb39GDHyatLPv2WwXJ7mVYo_Q_kCH55Vij9D-QIfnnCT6Fm91wF6uBz_L9QPrKiLJzAxlQ9qRaEa3L5EvcOt&_nc_ohc=ByijnzjSpmMAX_0lnnV&_nc_ht=scontent.fdps5-1.fna&oh=cafea5b87c15c4360e986c1e6fea3a88&oe=60468E5A"
-                    alt=""
-                  />
-                </div>
-                <div class="w-full h-full flex flex-col justify-center">
-                  <h3 class="text text-lg">Sudana</h3>
-                  <p class="text text-xs">halow nyung</p>
-                </div>
-                 <div class="h-full w-10 flex items-center justify-center">
-                  <div class="w-3 h-3 bg-green-500 rounded-full"></div>
-                </div>
-              </router-link>
-            </div>
-            <div v-if="tabs === 'group'" class="flex flex-col space-y-3 mt-3">
-             <router-link class="flex flex-row justify-around h-full items-center">
-                <div class="w-10 mr-2 h-16 flex items-center justify-center">
-                  <img
-                    class="h-8 w-8 rounded-full"
-                    src="https://scontent.fdps5-1.fna.fbcdn.net/v/t1.0-9/37921553_1447009505400641_8037753745087397888_n.jpg?_nc_cat=102&ccb=2&_nc_sid=09cbfe&_nc_eui2=AeGtQb39GDHyatLPv2WwXJ7mVYo_Q_kCH55Vij9D-QIfnnCT6Fm91wF6uBz_L9QPrKiLJzAxlQ9qRaEa3L5EvcOt&_nc_ohc=ByijnzjSpmMAX_0lnnV&_nc_ht=scontent.fdps5-1.fna&oh=cafea5b87c15c4360e986c1e6fea3a88&oe=60468E5A"
-                    alt=""
-                  />
-                </div>
-                <div class="w-full h-full flex flex-col justify-center">
-                  <h3 class="text text-lg">Sudana</h3>
-                  <p class="text text-xs">halow nyung</p>
-                </div>
-                 <div class="h-full w-10 flex items-center justify-center">
-                  <div class="w-3 h-3 bg-green-500 rounded-full"></div>
-                </div>
-              </router-link>
-             <router-link class="flex flex-row justify-around h-full items-center">
-                <div class="w-10 mr-2 h-16 flex items-center justify-center">
-                  <img
-                    class="h-8 w-8 rounded-full"
-                    src="https://scontent.fdps5-1.fna.fbcdn.net/v/t1.0-9/37921553_1447009505400641_8037753745087397888_n.jpg?_nc_cat=102&ccb=2&_nc_sid=09cbfe&_nc_eui2=AeGtQb39GDHyatLPv2WwXJ7mVYo_Q_kCH55Vij9D-QIfnnCT6Fm91wF6uBz_L9QPrKiLJzAxlQ9qRaEa3L5EvcOt&_nc_ohc=ByijnzjSpmMAX_0lnnV&_nc_ht=scontent.fdps5-1.fna&oh=cafea5b87c15c4360e986c1e6fea3a88&oe=60468E5A"
-                    alt=""
-                  />
-                </div>
-                <div class="w-full h-full flex flex-col justify-center">
-                  <h3 class="text text-lg">Sudana</h3>
-                  <p class="text text-xs">halow nyung</p>
-                </div>
-                <div class="h-full w-10 flex items-center justify-center">
-                  <div class="w-3 h-3 bg-green-500 rounded-full"></div>
-                </div>
-              </router-link>
+            </template>
             </div>
           </div>
           <!-- chat room -->
@@ -527,6 +467,7 @@
           ></path>
         </svg>
       </router-link>
+     
     </div>
   </div>
 </template>
@@ -534,12 +475,17 @@
 <script>
 import { mapGetters } from "vuex";
 import Loading from "../src/components/loading/index";
-
+import { io } from "socket.io-client";
+const token = localStorage.token;
+const socket = io("http://192.168.1.96:3000", {
+  query: { token },
+});
 export default {
   data() {
     return {
       dropdownprofile: false,
       tabs: "personal",
+      friends:[]
     };
   },
   computed: {
@@ -549,11 +495,17 @@ export default {
     logout() {
       this.$store.dispatch("logout");
     },
-  
+
   },
   components: {
     Loading,
   },
+  async mounted(){
+      this.friends = await this.$store.dispatch("getFriend");
+      console.log(this.friends)
+    socket.emit("login", { userId: this.currentUser._id });
+   
+  }
 };
 </script>
 

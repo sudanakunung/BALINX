@@ -1,8 +1,8 @@
 <template>
   <div
-    class="max-h-screen w-full flex flex-col border border-gray-900 justify-between"
+    class="max-h-screen w-full flex flex-col  justify-between"
   >
-    <div class="flex bg-gray-900 rounded-b-lg" style="height: 10vh">
+    <div class="flex bgdark rounded-b-lg" style="height: 10vh">
       <div class="w-20 mr-2 h-full flex items-center justify-center">
         <img
           class="h-12 w-12 rounded-full"
@@ -11,21 +11,42 @@
         />
       </div>
       <div class="h-full flex justify-start items-center space-x-2">
-        <h3 class="text text-lg">Sudana</h3>
+        <input type="text" class="text text-lg bg-transparent" v-model="user" />
       </div>
-    </div>
-    <div class="px-3 py-5 flex flex-col space-y-2" style="height: 80vh">
-      <div class="flex flex-row items-center" v-for="(msg, index) in messages" :key="index">
-        <p class="max-w-xs bg-white rounded-md p-2">{{ msg.message }}</p>
-        <span class="px-3 text-gray-500 text-xs">10:02</span>
-      </div>
-     
     </div>
     <div
-      class="relative bg-gray-900 flex items-center  rounded-t-lg px-5"
+      ref="chatBox"
+      class="p-3 flex flex-col bg-gray-100 justify-end overflow-y-auto space-y-2"
+      style="height: 80vh"
+    >
+      <div
+        v-bind:class="user == msg.user ? 'flex-row-reverse' : 'flex-row'"
+        class="flex items-end"
+        v-for="(msg, index) in messages"
+        :key="index"
+      >
+        <div class="flex flex-col">
+          <div>
+            <p  v-bind:class="user == msg.user ? ' hidden' : ' block'" class="text-s text">{{ msg.user }}</p>
+          </div>
+          <div>
+            <p
+              v-bind:class="user == msg.user ? ' bg-gray-300' : ' bg-white'"
+              class="max-s rounded-md text-s p-2"
+            >
+              {{ msg.message }}
+            </p>
+          </div>
+        </div>
+
+        <span class="px-3 text-gray-500 text-xs">{{ date(msg.date) }}</span>
+      </div>
+    </div>
+    <div
+      class="relative bgdark flex items-center rounded-t-lg px-5"
       style="height: 10vh"
     >
-      <form @submit.prevent="sendMessage" class="w-full flex items-center ">
+      <form @submit.prevent="sendMessage" class="w-full flex items-center">
         <svg
           class="w-8 h-8 absolute text left-6"
           fill="currentColor"
@@ -61,17 +82,27 @@
 </template>
 
 <script>
-const io = require("socket.io-client");
-const socket = io("http://192.168.1.96:3000");
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import { mapGetters } from "vuex";
+import { io } from "socket.io-client";
+const token = localStorage.token;
+const socket = io("http://localhost:3000", {
+  query: { token },
+});
 export default {
   data() {
     return {
-      user: "anjing",
+      user: null,
       message: "",
       messages: [],
       socket: socket,
     };
   },
+  computed: {
+    ...mapGetters(["currentUser"]),
+  },
+  props:['chatId'],
   methods: {
     sendMessage(e) {
       e.preventDefault();
@@ -79,14 +110,33 @@ export default {
       this.socket.emit("SEND_MESSAGE", {
         user: this.user,
         message: this.message,
+        date: new Date(),
+        id:this.chatId
       });
       this.message = "";
+      this.scrollToBottom();
     },
+    date(timestamp) {
+      dayjs.extend(relativeTime);
+
+      var result = dayjs(timestamp).fromNow("mm");
+      return result;
+    },
+    scrollToBottom() {
+      this.$refs.chatBox.scrollTop = this.$refs.chatBox.scrollHeight;
+    },
+ 
   },
+
   mounted() {
+    this.scrollToBottom();
+   
+  socket.emit('join', {id: this.chatId});
     this.socket.on("MESSAGE", (data) => {
       this.messages = [...this.messages, data];
-      //  this.messages.push(data)
+    });
+    this.socket.on("login", (data) => {
+      console.log(data);
     });
   },
 };

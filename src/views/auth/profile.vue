@@ -40,7 +40,7 @@
         </button>
         <div
           v-bind:class="infoUser === true ? 'block' : 'hidden'"
-          class="absolute flex flex-col top-0 right-0 p-5 mt-10 bg-gray-900 rounded-md"
+          class="absolute flex flex-col top-0 right-0 p-5 mt-10 bgdark rounded-md"
         >
           <router-link
             to="profile/edit"

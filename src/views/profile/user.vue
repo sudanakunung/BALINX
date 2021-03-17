@@ -28,29 +28,41 @@
     </div>
     <div class="w-full flex flex-col space-y-2 mb-3">
       <div class="w-full flex justify-between text text-center">
-         <div>
+        <div>
           <h5 class="text-base">Post</h5>
-          <h4  class="text-sm">{{dataUser.post.length}}</h4>
+          <h4 class="text-sm">{{ dataUser.post.length }}</h4>
         </div>
         <div>
           <h5 class="text-base">Following</h5>
-          <h4  class="text-sm">{{dataUser.following.length}}</h4>
+          <h4 class="text-sm">{{ dataUser.following.length }}</h4>
         </div>
         <div>
           <h5 class="text-base">Follower</h5>
-          <h4  class="text-sm">{{dataUser.follower.length}}</h4>
+          <h4 class="text-sm">{{ dataUser.follower.length }}</h4>
         </div>
-       
       </div>
     </div>
     <div class="h-20 w-full text my-2">
-      <p>
-        ini bio ku
-      </p>
+      <p>ini bio ku</p>
     </div>
-    <div v-if="currentUser" class="flex flex-row w-full justify-end px-3 space-x-2 my-3">
-      <button v-if="!followed" @click="follow" class="bg-gray-300 dark:bg-gray-900 font-bold text w-40 py-2 rounded-md">Follow</button>
-       <button v-if="!friended" class="bg-gray-300 dark:bg-gray-900 font-bold text w-40 py-2 rounded-md">Add Friend</button>
+    <div
+      v-if="currentUser"
+      class="flex flex-row w-full justify-end px-3 space-x-2 my-3"
+    >
+      <button
+        v-if="!followed"
+        @click="follow"
+        class="bg-gray-300 dark:bg-gray-900 font-bold text w-40 py-2 rounded-md"
+      >
+        Follow
+      </button>
+      <button
+        @click="addFriend"
+        v-if="!friended"
+        class="bg-gray-300 dark:bg-gray-900 font-bold text w-40 py-2 rounded-md"
+      >
+        Add Friend
+      </button>
     </div>
     <div class="grid grid-cols-3">
       <button
@@ -60,7 +72,7 @@
             ? 'dark:border-white border-gray-800'
             : 'border-white dark:border-gray-800'
         "
-        class="text text-xs md:text-lg border-b-4  py-2 focus:outline-none"
+        class="text text-xs md:text-lg border-b-4 py-2 focus:outline-none"
       >
         All
       </button>
@@ -71,7 +83,7 @@
             ? 'dark:border-white border-gray-800'
             : 'border-white dark:border-gray-800'
         "
-        class="text text-xs md:text-lg border-b-4  py-2 focus:outline-none"
+        class="text text-xs md:text-lg border-b-4 py-2 focus:outline-none"
       >
         Collection
       </button>
@@ -82,14 +94,14 @@
             ? 'dark:border-white border-gray-800'
             : 'border-white dark:border-gray-800'
         "
-        class="text text-xs md:text-lg border-b-4  py-2 focus:outline-none"
+        class="text text-xs md:text-lg border-b-4 py-2 focus:outline-none"
       >
         Archive
       </button>
     </div>
-      <div v-if="category === 'all'">
-          <Minipost v-bind:userId="this.userId" />
-      </div>
+    <div v-if="category === 'all'">
+      <Minipost v-bind:userId="this.userId" />
+    </div>
   </div>
 </template>
 
@@ -102,8 +114,8 @@ export default {
       category: "all",
       infoUser: false,
       dataUser: [],
-      followed:false,
-      friended:false
+      followed: false,
+      friended: false,
     };
   },
   components: {
@@ -114,16 +126,20 @@ export default {
     async getUser() {
       this.dataUser = await this.$store.dispatch("getUser", this.userId);
     },
-    async follow(){
-      var data ={
-        following:this.currentUser._id,
-        follower:this.userId
-      }
-      this.followed = await this.$store.dispatch("follow",data);
-      console.log(this.followed)
-    }
+    async follow() {
+      var data = {
+        following: this.currentUser._id,
+        follower: this.userId,
+      };
+      this.followed = await this.$store.dispatch("follow", data);
+      console.log(this.followed);
+    },
+    async addFriend() {
+      this.followed = await this.$store.dispatch("addFriend", this.userId);
+      console.log(this.followed);
+    },
   },
-    computed: {
+  computed: {
     ...mapGetters(["currentUser"]),
   },
   async mounted() {

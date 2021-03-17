@@ -65,7 +65,7 @@ const routes = [
             requiresAuth: true
         }
     }, {
-        path: '/chat/:userId',
+        path: '/chat/:chatId',
         name: 'chatroom',
         props:true,
         component: () => import ('../views/chat/index.vue'),
@@ -94,10 +94,10 @@ const router = new VueRouter({mode: 'history', base: process.env.BASE_URL, route
 
 
 router.beforeEach((to, from, next) => {
-    const token = localStorage.token;
+  
     if (to.matched.some(record => record.meta.requiresAuth)) {
 
-        if (! token) {
+        if (! localStorage.token) {
             next({
                 path: '/login',
                 query: {

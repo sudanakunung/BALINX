@@ -20,6 +20,9 @@ export default new Vuex.Store({
         currentUser: state => {
             return state.user;
         },
+        token: state => {
+            return state.token;
+        },
         events: state => {
             return state.event
         }
@@ -162,12 +165,12 @@ export default new Vuex.Store({
             return response.data;
         },
         async getComment(context, postId) {
-            var response = await api.get('/post/comment/' + postId,{
-                    headers: {
-                        'auth-token': this.state.token,
-                        'Content-Type': 'application/json'
-                    }
-                })
+            var response = await api.get('/post/comment/' + postId, {
+                headers: {
+                    'auth-token': this.state.token,
+                    'Content-Type': 'application/json'
+                }
+            })
             return response.data;
         },
         async Like(context, data) {
@@ -183,6 +186,25 @@ export default new Vuex.Store({
         async getSinglePost(context, postId) {
             var response = await api.get('/post/single/' + postId)
             return response.data;
+        },
+        async addFriend(context, userId) {
+            var data = {
+                "userId": userId
+            }
+            var response = await api.post('/user/friend', data, {
+                headers: {
+                    'auth-token': this.state.token,
+                    'Content-Type': 'application/json'
+                }
+            })
+            return response.data;
+        },
+        async getFriend(context) {
+            context.commit("SET_LOADING", true);
+            var response = await api.get('/conver/get-conver/'+ this.state.token)
+            context.commit("SET_LOADING", false);
+            return response.data;
+
         }
     },
     modules: {}

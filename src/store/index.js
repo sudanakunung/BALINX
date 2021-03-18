@@ -10,7 +10,7 @@ export default new Vuex.Store({
     state: {
         token: localStorage.token,
         loading: false,
-        user: JSON.parse(localStorage.user),
+        user:localStorage.user,
         event: null
     },
     getters: {
@@ -18,7 +18,7 @@ export default new Vuex.Store({
             return state.loading;
         },
         currentUser: state => {
-            return state.user;
+            return  JSON.parse(state.user);
         },
         token: state => {
             return state.token;
@@ -54,8 +54,7 @@ export default new Vuex.Store({
 
                 context.commit("SET_TOKEN", response.data.token);
                 context.commit("SET_USER", response.data.user);
-
-                router.push('/')
+          window.location = '/';
             } catch (error) {
 
                 console.error(error);
@@ -72,7 +71,7 @@ export default new Vuex.Store({
                     password: form.password,
                     confirm_password: form.confirm_password
                 });
-                router.push('/login');
+                window.location = '/login';
                 context.commit("SET_LOADING", false);
             } catch (error) {
 
@@ -201,9 +200,31 @@ export default new Vuex.Store({
         },
         async getFriend(context) {
             context.commit("SET_LOADING", true);
-            var response = await api.get('/conver/get-conver/'+ this.state.token)
+            var response = await api.get('/conver/get-conver/' + this.state.token)
             context.commit("SET_LOADING", false);
             return response.data;
+
+        },
+        async getConver(context, roomId) {
+            context.commit("SET_LOADING", true);
+            var response = await api.post('/conver/room', {
+                "roomId": roomId
+            }, {
+                headers: {
+                    'auth-token': this.state.token,
+                    'Content-Type': 'application/json'
+                }
+            })
+
+            response = response.data;
+            
+            var user = response.user.find(data => {
+                return data._id != this.getters.currentUser._id;
+            })
+            response.user = user
+          
+            context.commit("SET_LOADING", false);
+            return response;
 
         }
     },

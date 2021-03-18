@@ -1,22 +1,20 @@
 <template>
-  <div
-    class="max-h-screen w-full flex flex-col  justify-between"
-  >
-    <div class="flex bgdark rounded-b-lg" style="height: 10vh">
+  <div class="max-h-screen w-full flex flex-col justify-between">
+    <div class="flex bgdark " style="height: 10vh">
       <div class="w-20 mr-2 h-full flex items-center justify-center">
         <img
           class="h-12 w-12 rounded-full"
-          src="https://scontent.fdps5-1.fna.fbcdn.net/v/t1.0-9/37921553_1447009505400641_8037753745087397888_n.jpg?_nc_cat=102&ccb=2&_nc_sid=09cbfe&_nc_eui2=AeGtQb39GDHyatLPv2WwXJ7mVYo_Q_kCH55Vij9D-QIfnnCT6Fm91wF6uBz_L9QPrKiLJzAxlQ9qRaEa3L5EvcOt&_nc_ohc=ByijnzjSpmMAX_0lnnV&_nc_ht=scontent.fdps5-1.fna&oh=cafea5b87c15c4360e986c1e6fea3a88&oe=60468E5A"
+          :src="'http://localhost:3000/' + this.dataRoom.user.avatar"
           alt=""
         />
       </div>
       <div class="h-full flex justify-start items-center space-x-2">
-        <input type="text" class="text text-lg bg-transparent" v-model="user" />
+        <h1 class="text">{{ this.dataRoom.user.name }}</h1>
       </div>
     </div>
     <div
       ref="chatBox"
-      class="p-3 flex flex-col bg-gray-100 justify-end overflow-y-auto space-y-2"
+      class="p-3 flex flex-col bg-gray-200 dark:bg-gray-700 justify-end overflow-y-auto space-y-2"
       style="height: 80vh"
     >
       <div
@@ -27,7 +25,7 @@
       >
         <div class="flex flex-col">
           <div>
-            <p  v-bind:class="user == msg.user ? ' hidden' : ' block'" class="text-s text">{{ msg.user }}</p>
+    
           </div>
           <div>
             <p
@@ -43,7 +41,7 @@
       </div>
     </div>
     <div
-      class="relative bgdark flex items-center rounded-t-lg px-5"
+      class="relative bgdark flex items-center  px-5"
       style="height: 10vh"
     >
       <form @submit.prevent="sendMessage" class="w-full flex items-center">
@@ -64,7 +62,7 @@
           type="text"
           class="w-full rounded-full border bg-transparent text pl-10 py-2 focus:outline-none"
         />
-        <button class="absolute transform rotate-90 right-6 text">
+        <button class="absolute transform rotate-90 right-6 text focus:outline-none">
           <svg
             class="w-8 h-8"
             fill="currentColor"
@@ -97,22 +95,24 @@ export default {
       message: "",
       messages: [],
       socket: socket,
+      dataRoom: null,
     };
   },
   computed: {
     ...mapGetters(["currentUser"]),
   },
-  props:['chatId'],
+  props: ["chatId"],
   methods: {
     sendMessage(e) {
       e.preventDefault();
-
+    if(this.message){
       this.socket.emit("SEND_MESSAGE", {
-        user: this.user,
+        user: this.currentUser._id,
         message: this.message,
         date: new Date(),
-        id:this.chatId
+        id: this.chatId,
       });
+    }
       this.message = "";
       this.scrollToBottom();
     },
@@ -122,22 +122,25 @@ export default {
       var result = dayjs(timestamp).fromNow("mm");
       return result;
     },
+    async getRoom() {
+      this.dataRoom = await this.$store.dispatch("getConver", this.chatId);
+    },
     scrollToBottom() {
       this.$refs.chatBox.scrollTop = this.$refs.chatBox.scrollHeight;
     },
- 
   },
 
   mounted() {
-    this.scrollToBottom();
-   
-  socket.emit('join', {id: this.chatId});
+    socket.emit("join", { id: this.chatId });
     this.socket.on("MESSAGE", (data) => {
       this.messages = [...this.messages, data];
     });
     this.socket.on("login", (data) => {
       console.log(data);
     });
+    this.user=this.currentUser._id
+    this.getRoom();
+    this.scrollToBottom();
   },
 };
 </script>

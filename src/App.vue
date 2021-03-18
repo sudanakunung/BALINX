@@ -2,10 +2,9 @@
   <div class="w-full bg-white dark:bg-gray-800">
     <Loading />
     <div
-      class=" flex lg:hidden top-0 w-full bg-gray-800 p-2 h-14 justify-end"
+      class="flex lg:hidden top-0 w-full bg-gray-800 p-2 h-14 justify-end"
       style="z-index: 1000"
     >
-
       <router-link
         to="/search"
         class="items-center px-5 rounded-lg text flex space-x-2"
@@ -273,7 +272,7 @@
             <h1 class="text text-2xl">Chat</h1>
           </div>
           <!-- list chat -->
-          <div class="relative ">
+          <div class="relative">
             <input
               type="text"
               class="w-full py-2 px-4 focus:outline-none rounded-md text dark:bg-gray-900 bg-gray-300"
@@ -319,27 +318,30 @@
               v-if="tabs === 'personal'"
               class="flex flex-col space-y-3 mt-3"
             >
-            <template v-for="friend in friends">
+              <template v-for="friend in friends">
+                <router-link
+                  v-bind:key="friend._id"
+                  :to="{ name: 'chatroom', params: { chatId: friend._id } }"
+                  class="flex rounded-md flex-row px-3 justify-around h-full items-center"
+                >
+                  <div class="w-10 mr-2 h-16 flex items-center justify-center">
+                    <img
+                      class="h-8 w-8 rounded-full"
+                      :src="'http://localhost:3000/'+friend.user.avatar"
+                      alt=""
+                    />
+                  </div>
 
-              <router-link v-bind:key="friend._id" :to="{ name: 'chatroom', params: { chatId:friend._id } }" class="flex rounded-md flex-row px-3 justify-around h-full items-center">
-                <div class="w-10 mr-2 h-16 flex items-center justify-center">
-                  <img
-                    class="h-8 w-8 rounded-full"
-                    src="https://scontent.fdps5-1.fna.fbcdn.net/v/t1.0-9/37921553_1447009505400641_8037753745087397888_n.jpg?_nc_cat=102&ccb=2&_nc_sid=09cbfe&_nc_eui2=AeGtQb39GDHyatLPv2WwXJ7mVYo_Q_kCH55Vij9D-QIfnnCT6Fm91wF6uBz_L9QPrKiLJzAxlQ9qRaEa3L5EvcOt&_nc_ohc=ByijnzjSpmMAX_0lnnV&_nc_ht=scontent.fdps5-1.fna&oh=cafea5b87c15c4360e986c1e6fea3a88&oe=60468E5A"
-                    alt=""
-                  />
-                </div>
-              
-                <div   class="w-full h-full flex flex-col justify-center">
-                  <h3 class="text text-lg">sudana</h3>
-                  <p class="text text-xs">halow nyung</p>
-                </div>
-              
-                <div class="h-full w-10 flex items-center justify-center">
-                  <div class="w-3 h-3 bg-green-500 rounded-full"></div>
-                </div>
-              </router-link>
-            </template>
+                  <div class="w-full h-full flex flex-col justify-center">
+                    <h3 class="text text-lg">{{friend.user.name}}</h3>
+                    <p class="text text-xs">halow nyung</p>
+                  </div>
+
+                  <div class="h-full w-10 flex items-center justify-center">
+                    <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                  </div>
+                </router-link>
+              </template>
             </div>
           </div>
           <!-- chat room -->
@@ -369,11 +371,9 @@
               />
               <h3>Sudana kunyung</h3>
             </div>
-            <div class="h-full w-full border-gray-900 border-2">
-
-            </div>
+            <div class="h-full w-full border-gray-900 border-2"></div>
             <div class="h-16">
-              <input type="text" class="rounded-md">
+              <input type="text" class="rounded-md" />
             </div>
           </div>
         </div>
@@ -467,7 +467,6 @@
           ></path>
         </svg>
       </router-link>
-     
     </div>
   </div>
 </template>
@@ -476,6 +475,7 @@
 import { mapGetters } from "vuex";
 import Loading from "../src/components/loading/index";
 import { io } from "socket.io-client";
+
 const token = localStorage.token;
 const socket = io("http://192.168.1.96:3000", {
   query: { token },
@@ -485,7 +485,7 @@ export default {
     return {
       dropdownprofile: false,
       tabs: "personal",
-      friends:[]
+      friends: [],
     };
   },
   computed: {
@@ -495,17 +495,26 @@ export default {
     logout() {
       this.$store.dispatch("logout");
     },
-
   },
   components: {
     Loading,
   },
-  async mounted(){
-      this.friends = await this.$store.dispatch("getFriend");
-      console.log(this.friends)
-    socket.emit("login", { userId: this.currentUser._id });
+  async mounted() {
    
-  }
+   var array = await this.$store.dispatch("getFriend");
+   var chatlist=[]
+    array.forEach(element => {
+      
+      var user=element.user.find(data=>{
+        return data._id!=this.currentUser._id;
+      })
+      element.user=user 
+    chatlist.push(element)
+    });
+    this.friends= chatlist
+    console.log(this.friends);
+    socket.emit("login", { userId: this.currentUser._id });
+  },
 };
 </script>
 

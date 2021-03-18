@@ -1,6 +1,6 @@
 <template>
   <div class="max-h-screen w-full flex flex-col justify-between">
-    <div class="flex bgdark " style="height: 10vh">
+    <div class="flex bgdark" style="height: 10vh">
       <div class="w-20 mr-2 h-full flex items-center justify-center">
         <img
           class="h-12 w-12 rounded-full"
@@ -24,9 +24,7 @@
         :key="index"
       >
         <div class="flex flex-col">
-          <div>
-    
-          </div>
+          <div></div>
           <div>
             <p
               v-bind:class="user == msg.user ? ' bg-gray-300' : ' bg-white'"
@@ -40,10 +38,7 @@
         <span class="px-3 text-gray-500 text-xs">{{ date(msg.date) }}</span>
       </div>
     </div>
-    <div
-      class="relative bgdark flex items-center  px-5"
-      style="height: 10vh"
-    >
+    <div class="relative bgdark flex items-center px-5" style="height: 10vh">
       <form @submit.prevent="sendMessage" class="w-full flex items-center">
         <svg
           class="w-8 h-8 absolute text left-6"
@@ -62,7 +57,9 @@
           type="text"
           class="w-full rounded-full border bg-transparent text pl-10 py-2 focus:outline-none"
         />
-        <button class="absolute transform rotate-90 right-6 text focus:outline-none">
+        <button
+          class="absolute transform rotate-90 right-6 text focus:outline-none"
+        >
           <svg
             class="w-8 h-8"
             fill="currentColor"
@@ -105,14 +102,14 @@ export default {
   methods: {
     sendMessage(e) {
       e.preventDefault();
-    if(this.message){
-      this.socket.emit("SEND_MESSAGE", {
-        user: this.currentUser._id,
-        message: this.message,
-        date: new Date(),
-        id: this.chatId,
-      });
-    }
+      if (this.message) {
+        this.socket.emit("SEND_MESSAGE", {
+          user: this.currentUser._id,
+          message: this.message,
+          date: new Date(),
+          id: this.chatId,
+        });
+      }
       this.message = "";
       this.scrollToBottom();
     },
@@ -138,7 +135,7 @@ export default {
     this.socket.on("login", (data) => {
       console.log(data);
     });
-    this.user=this.currentUser._id
+    this.user = this.currentUser._id;
     this.getRoom();
     this.scrollToBottom();
   },

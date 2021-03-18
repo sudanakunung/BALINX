@@ -327,13 +327,13 @@
                   <div class="w-10 mr-2 h-16 flex items-center justify-center">
                     <img
                       class="h-8 w-8 rounded-full"
-                      :src="'http://localhost:3000/'+friend.user.avatar"
+                      :src="'http://localhost:3000/' + friend.user.avatar"
                       alt=""
                     />
                   </div>
 
                   <div class="w-full h-full flex flex-col justify-center">
-                    <h3 class="text text-lg">{{friend.user.name}}</h3>
+                    <h3 class="text text-lg">{{ friend.user.name }}</h3>
                     <p class="text text-xs">halow nyung</p>
                   </div>
 
@@ -500,18 +500,16 @@ export default {
     Loading,
   },
   async mounted() {
-   
-   var array = await this.$store.dispatch("getFriend");
-   var chatlist=[]
-    array.forEach(element => {
-      
-      var user=element.user.find(data=>{
-        return data._id!=this.currentUser._id;
-      })
-      element.user=user 
-    chatlist.push(element)
+    var array = await this.$store.dispatch("getFriend");
+    var chatlist = [];
+    array.forEach((element) => {
+      var user = element.user.find((data) => {
+        return data._id != this.currentUser._id;
+      });
+      element.user = user;
+      chatlist.push(element);
     });
-    this.friends= chatlist
+    this.friends = chatlist;
     console.log(this.friends);
     socket.emit("login", { userId: this.currentUser._id });
   },

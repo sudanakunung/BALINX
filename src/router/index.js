@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import store from '../store'
 import VueRouter from 'vue-router'
 import Login from '../views/auth/login.vue'
 import Register from '../views/auth/register.vue'
@@ -94,10 +95,10 @@ const router = new VueRouter({mode: 'history', base: process.env.BASE_URL, route
 
 
 router.beforeEach((to, from, next) => {
-  
+
     if (to.matched.some(record => record.meta.requiresAuth)) {
 
-        if (! localStorage.token) {
+        if (!store.getters.isAuthenticated) {
             next({
                 path: '/login',
                 query: {

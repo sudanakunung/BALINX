@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import router from '@/router'
+// import router from '@/router'
 import axios from 'axios';
 
 Vue.use(Vuex)
@@ -8,9 +8,9 @@ const api = axios.create({baseURL: 'http://localhost:3000/api/'})
 
 export default new Vuex.Store({
     state: {
-        token: localStorage.token,
+        token: localStorage.getItem('token') || '',
         loading: false,
-        user:localStorage.user,
+        user: localStorage.user,
         event: null
     },
     getters: {
@@ -18,11 +18,9 @@ export default new Vuex.Store({
             return state.loading;
         },
         currentUser: state => {
-            return  JSON.parse(state.user);
+            return JSON.parse(state.user);
         },
-        token: state => {
-            return state.token;
-        },
+        isAuthenticated: state => !!state.token,
         events: state => {
             return state.event
         }
@@ -54,7 +52,7 @@ export default new Vuex.Store({
 
                 context.commit("SET_TOKEN", response.data.token);
                 context.commit("SET_USER", response.data.user);
-          window.location = '/';
+                window.location = '/';
             } catch (error) {
 
                 console.error(error);
@@ -144,7 +142,7 @@ export default new Vuex.Store({
             await localStorage.clear();
             context.commit('SET_USER', false);
             context.commit('SET_USER', false);
-            router.push('/login')
+            window.location='/login'
         },
         async getEvent(context) {
             const response = await api.post('/event/all');
@@ -217,12 +215,12 @@ export default new Vuex.Store({
             })
 
             response = response.data;
-            
+
             var user = response.user.find(data => {
                 return data._id != this.getters.currentUser._id;
             })
             response.user = user
-          
+
             context.commit("SET_LOADING", false);
             return response;
 

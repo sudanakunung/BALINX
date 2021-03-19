@@ -334,7 +334,6 @@
 
                   <div class="w-full h-full flex flex-col justify-center">
                     <h3 class="text text-lg">{{ friend.user.name }}</h3>
-                    <p class="text text-xs">halow nyung</p>
                   </div>
 
                   <div class="h-full w-10 flex items-center justify-center">
@@ -510,7 +509,6 @@ export default {
       chatlist.push(element);
     });
     this.friends = chatlist;
-    console.log(this.friends);
     socket.emit("login", { userId: this.currentUser._id });
   },
 };

@@ -5,6 +5,12 @@ import './registerServiceWorker'
 import router from './router'
 import store from './store'
 import './index.css'
+import GAuth from 'vue-google-oauth2'
+const gauthOption = {
+  clientId: 'CLIENT_ID.apps.googleusercontent.com',
+  scope: 'profile email',
+  prompt: 'select_account'
+}
 
 Vue.config.productionTip = false
 
@@ -13,6 +19,8 @@ if(localStorage.token){
 new Vue({
   router,
   store,
+  GAuth, 
+  gauthOption,
   render: h => h(App)
 }).$mount('#app')
 }else{
@@ -20,6 +28,8 @@ new Vue({
 new Vue({
   router,
   store,
+  GAuth, 
+  gauthOption,
   render: h => h(Guest)
 }).$mount('#app')
 }

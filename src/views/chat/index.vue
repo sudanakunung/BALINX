@@ -18,7 +18,7 @@
       style="height: 80vh"
     >
       <div
-        v-bind:class="user == msg.user ? 'flex-row-reverse' : 'flex-row'"
+        v-bind:class="user == msg.sender ? 'flex-row-reverse' : 'flex-row'"
         class="flex items-end"
         v-for="(msg, index) in messages"
         :key="index"
@@ -27,7 +27,7 @@
           <div></div>
           <div>
             <p
-              v-bind:class="user == msg.user ? ' bg-gray-300' : ' bg-white'"
+              v-bind:class="user == msg.sender ? ' bg-gray-300' : ' bg-white'"
               class="max-s rounded-md text-s p-2"
             >
               {{ msg.message }}
@@ -122,6 +122,11 @@ export default {
     async getRoom() {
       this.dataRoom = await this.$store.dispatch("getConver", this.chatId);
     },
+    async getMessage() {
+       this.messages = await this.$store.dispatch("getMessage", this.chatId);
+
+      console.log(this.messages.reverse());
+    },
     scrollToBottom() {
       this.$refs.chatBox.scrollTop = this.$refs.chatBox.scrollHeight;
     },
@@ -132,11 +137,10 @@ export default {
     this.socket.on("MESSAGE", (data) => {
       this.messages = [...this.messages, data];
     });
-    this.socket.on("login", (data) => {
-      console.log(data);
-    });
+
     this.user = this.currentUser._id;
     this.getRoom();
+    this.getMessage()
     this.scrollToBottom();
   },
 };

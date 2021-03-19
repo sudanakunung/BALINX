@@ -4,9 +4,7 @@
       
     </div>
     <div class="w-1/2 flex items-center justify-center relative" >
-     <div class="absolute h-full w-full">
-
-     </div>
+  
       <div class="leading-loose">
         <form
           class="max-w-lg m-4 p-10 bg-white bg-opacity-25 rounded shadow-xl"
@@ -15,7 +13,7 @@
           <div class="">
             <label class="block text-sm text-white" for="email">Name</label>
             <input
-              class="w-full px-5 py-1 text-gray-700 bg-gray-300 rounded focus:outline-none focus:bg-white"
+              class="w-full px-5 py-1 text-white bg-transparent border-b-2 rounded focus:outline-none"
               type="text"
               id="name"
               placeholder="Name"
@@ -27,7 +25,7 @@
           <div class="">
             <label class="block text-sm text-white" for="email">E-mail</label>
             <input
-              class="w-full px-5 py-1 text-gray-700 bg-gray-300 rounded focus:outline-none focus:bg-white"
+              class="w-full px-5 py-1 text-white bg-transparent border-b-2 rounded focus:outline-none"
               type="email"
               id="email"
               placeholder="Email"
@@ -39,7 +37,7 @@
           <div class="mt-2">
             <label class="block text-sm text-white">Password</label>
             <input
-              class="w-full px-5 py-1 text-gray-700 bg-gray-300 rounded focus:outline-none focus:bg-white"
+              class="w-full px-5 py-1 text-white bg-transparent border-b-2 rounded focus:outline-none"
               type="password"
               id="password"
               placeholder="Password"
@@ -51,7 +49,7 @@
           <div class="mt-2">
             <label class="block text-sm text-white">Confirm Password</label>
             <input
-              class="w-full px-5 py-1 text-gray-700 bg-gray-300 rounded focus:outline-none focus:bg-white"
+              class="w-full px-5 py-1 text-white bg-transparent border-b-2 rounded focus:outline-none"
               type="password"
               id="password"
               placeholder="Confirm Password"

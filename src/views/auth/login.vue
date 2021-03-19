@@ -14,7 +14,7 @@
           <div class="">
             <label class="block text-sm text-white" for="email">E-mail</label>
             <input
-              class="w-full px-5 py-1 text-gray-700 bg-gray-300 rounded focus:outline-none focus:bg-white"
+              class="w-full px-5 py-1 text-white  bg-transparent border-b-2 rounded focus:outline-none "
               type="email"
               id="email"
               placeholder="Email"
@@ -26,7 +26,7 @@
           <div class="mt-2">
             <label class="block text-sm text-white">Password</label>
             <input
-              class="w-full px-5 py-1 text-gray-700 bg-gray-300 rounded focus:outline-none focus:bg-white"
+              class="w-full px-5 py-1 text-white  bg-transparent border-b-2 rounded focus:outline-none "
               type="password"
               id="password"
               placeholder="Password"
@@ -54,9 +54,7 @@
           <div class="text-center">
           </div>
         </form>
-        <div>
-          <h5>Or</h5>
-        </div>
+
       </div>
     </div>
   </div>

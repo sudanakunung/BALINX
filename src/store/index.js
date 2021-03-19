@@ -142,7 +142,7 @@ export default new Vuex.Store({
             await localStorage.clear();
             context.commit('SET_USER', false);
             context.commit('SET_USER', false);
-            window.location='/login'
+            window.location = '/login'
         },
         async getEvent(context) {
             const response = await api.post('/event/all');
@@ -224,6 +224,19 @@ export default new Vuex.Store({
             context.commit("SET_LOADING", false);
             return response;
 
+        },
+        async getMessage(context, roomId) {
+            context.commit("SET_LOADING", true);
+            var response = await api.post('/conver/getMessage', {
+                "roomId": roomId
+            }, {
+                headers: {
+                    'auth-token': this.state.token,
+                    'Content-Type': 'application/json'
+                }
+            })
+             context.commit("SET_LOADING", false);
+            return response.data;
         }
     },
     modules: {}

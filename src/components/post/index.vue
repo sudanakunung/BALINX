@@ -7,8 +7,9 @@
         class="rounded-md"
       />
       <div
-        class="flex flex-row mt-2 justify-between space-x-5 items-center h-14 bottom-0 z-10"
+        class="flex lg:hidden flex-row mt-2 justify-between space-x-5 items-center h-14 bottom-0 z-10"
       >
+      
         <router-link
           :to="{ name: 'profileuser', params: { userId: post.user._id } }"
           class="w-20 md:w-14"
@@ -19,8 +20,11 @@
             alt=""
           />
         </router-link>
+          <div>
+      
+      </div>
         <div class="w-full flex justify-start items-center">
-          <h3 class="text">{{ post.user.name }}</h3>
+          <h3 class="text font-bold">{{ post.user.name }}</h3>
         </div>
         <div class="w-64 flex justify-between">
           <div class="flex flex-col justify-center">
@@ -67,6 +71,9 @@
             <h5 class="text text-xs text-center">{{ post.share.length }}</h5>
           </div>
         </div>
+          <p class="text-xs text absolute left-0 bottom-0">
+          {{this.date(this.post.date)}}
+        </p>
       </div>
       <div
         v-show="comment"
@@ -130,11 +137,7 @@
           </svg>
         </div>
       </div>
-      <div>
-        <p class="text-xs text">
-          {{this.date(this.post.date)}}
-        </p>
-      </div>
+    
     </div>
   </div>
 </template>

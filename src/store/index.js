@@ -168,6 +168,7 @@ export default new Vuex.Store({
                     'Content-Type': 'application/json'
                 }
             })
+
             return response.data;
         },
         async Like(context, data) {
@@ -225,11 +226,9 @@ export default new Vuex.Store({
             return response;
 
         },
-        async getMessage(context, roomId) {
+        async getMessage(context, data) {
             context.commit("SET_LOADING", true);
-            var response = await api.post('/conver/getMessage', {
-                "roomId": roomId
-            }, {
+            var response = await api.post('/conver/getMessage', data, {
                 headers: {
                     'auth-token': this.state.token,
                     'Content-Type': 'application/json'

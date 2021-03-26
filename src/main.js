@@ -5,6 +5,7 @@ import './registerServiceWorker'
 import router from './router'
 import store from './store'
 import './index.css'
+import VueSplide from '@splidejs/vue-splide';
 import GAuth from 'vue-google-oauth2'
 const gauthOption = {
   clientId: 'CLIENT_ID.apps.googleusercontent.com',
@@ -19,7 +20,8 @@ if(localStorage.token){
 new Vue({
   router,
   store,
-  GAuth, 
+  GAuth,
+  VueSplide, 
   gauthOption,
   render: h => h(App)
 }).$mount('#app')

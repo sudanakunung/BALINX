@@ -8,17 +8,23 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@egjs/vue-infinitegrid": "^3.2.2",
+    "@splidejs/vue-splide": "^0.3.5",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "dayjs": "^1.10.4",
     "form-data": "^2.3.3",
     "gsap": "^3.6.0",
     "mapbox-gl": "^2.1.1",
+    "masonry-layout": "^4.2.2",
     "register-service-worker": "^1.7.1",
     "socket.io": "^3.1.2",
     "socket.io-client": "^3.1.2",
+    "v-calendar": "^2.3.0",
     "vue": "^2.6.11",
     "vue-google-oauth2": "^1.5.8",
+    "vue-masonry": "^0.12.0",
+    "vue-masonry-gallery": "^1.1.1",
     "vue-router": "^3.2.0",
     "vuex": "^3.4.0"
   },
@@ -36,6 +42,7 @@
     "eslint-plugin-vue": "^6.2.2",
     "postcss": "^7.0.35",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.3",
+    "vue-masonry-css": "^1.0.3",
     "vue-template-compiler": "^2.6.11",
     "webpack": "^4.46.0"
   }

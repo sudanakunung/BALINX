@@ -1,4 +1,5 @@
 <template>
+<div class="h-screen w-full grid grid-cols-2">
   <div class="w-full p-10">
     <div
       v-if="!url"
@@ -47,6 +48,7 @@
       Upload
     </button>
   </div>
+</div>
 </template>
 
 <script>

@@ -7,11 +7,11 @@
         alt=""
       />
     </div>
-    <div class="w-full">
+    <div class="w-full text">
       <h3 class="text-md font-bold">{{name }}</h3>
       <p class="text-xs  tracking-tighter">{{text}}</p>
     </div>
-    <div class="w-20">
+    <div class="w-20 text">
       <p class="text-xs tracking-tighter">{{this.date(timestamp)}}</p>
     </div>
   </div>

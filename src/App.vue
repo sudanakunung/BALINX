@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full bg-white dark:bg-gray-800">
+  <div class="w-full bg-gray-100 dark:bg-gray-800">
     <Loading />
     <div
       class="flex lg:hidden top-0 w-full bg-gray-800 p-2 h-14 justify-end"
@@ -385,7 +385,6 @@
 
 <script>
 import { io } from "socket.io-client";
-
 const token = localStorage.token;
 const socket = io("http://192.168.1.96:3000", {
   query: { token },

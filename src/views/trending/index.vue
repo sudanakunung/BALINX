@@ -1,10 +1,10 @@
 <template>
-  <div class="grid grid-cols-2">
+  <div class="grid grid-cols-1 md:grid-cols-2">
     <masonry
-      :cols="{ default: 3, 1000: 3, 700: 2, 400: 1 }"
+      :cols="{ default: 3}"
       :gutter="{ default: '15px ', 700: '5px' }"
     >
-      <div v-for="(item, index) in items" :key="index" class="mt-3">
+      <div v-for="(item, index) in items" :key="index" class="mt-1 md:mt-3">
           <img :src="item.photo" alt="" class="rounded-md">
       </div>
     </masonry>
@@ -40,6 +40,14 @@ export default {
         },
         {
             photo:'https://images.unsplash.com/photo-1616328774581-516a025a7f0d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80'
+        },{
+            photo:'https://images.unsplash.com/photo-1616696787612-dfcc90ec88a1?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80'
+        },
+        {
+            photo:'https://images.unsplash.com/photo-1616709620730-0058222c8389?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1051&q=80'
+        },
+        {
+            photo:'https://images.unsplash.com/photo-1616697412153-7ad8ac8aa5d9?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80'
         }
       ],
     };

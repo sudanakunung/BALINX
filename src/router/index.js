@@ -68,7 +68,7 @@ const routes = [
     }, {
         path: '/chat/:chatId',
         name: 'chatroom',
-        props:true,
+        props: true,
         component: () => import ('../views/chat/index.vue'),
         meta: {
             requiresAuth: true
@@ -88,10 +88,17 @@ const routes = [
         meta: {
             requiresAuth: true
         }
-       }, {
+    }, {
         path: '/friends',
         name: 'friends',
         component: () => import ('../views/friends/index.vue'),
+        meta: {
+            requiresAuth: true
+        }
+    }, {
+        path: '/notification',
+        name: 'notification',
+        component: () => import ('../views/notification/index.vue'),
         meta: {
             requiresAuth: true
         }

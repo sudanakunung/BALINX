@@ -2,7 +2,7 @@
   <div class="relative w-full px-3">
     <input
       type="text"
-      class="w-full py-3 pl-4 pr-12 focus:outline-none rounded-md text dark:bg-gray-900 bg-gray-300 shadow-md dark:shadow-dark"
+      class="w-full py-3 pl-4 pr-12 focus:outline-none rounded-md text dark:bg-gray-900 bg-white shadow-md dark:shadow-dark"
       placeholder="search"
     />
     <svg

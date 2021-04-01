@@ -13,9 +13,6 @@
           <h1 class="text text-lg font-bold h-10 flex items-center">
             {{ this.dataRoom.user.name }}
           </h1>
-          <p v-show="userTyping" class="text-xs text-gray-600">
-            User typing....
-          </p>
         </div>
       </div>
       <div
@@ -43,7 +40,14 @@
           </div>
           <span class="px-3 text-gray-500 text-xs">{{ date(msg.date) }}</span>
         </div>
+        <div
+          class="max-s rounded-md text-s p-2 bg-white w-40 animate-pulse"
+          v-show="userTyping"
+        >
+          <p class="text-black">typing</p>
+        </div>
       </div>
+
       <div class="relative bgdark flex items-center px-5" style="height: 10vh">
         <form @submit.prevent="sendMessage" class="w-full flex items-center">
           <svg
@@ -82,111 +86,14 @@
       </div>
     </div>
     <div class="hidden max-h-screen lg:flex h-full w-full justify-end">
-      <div class="w-3/5 h-full flex flex-col pr-5">
-        <div class="py-3">
-          <h1 class="text text-2xl">Chat</h1>
-        </div>
-        <!-- list chat -->
-        <div>
-          <Search />
-          <div class="flex flex-row justify-around mt-5">
-            <button
-              @click="tabs = 'personal'"
-              v-bind:class="
-                tabs == 'personal'
-                  ? 'dark:border-white border-gray-800'
-                  : 'dark:border-gray-800 border-white'
-              "
-              class="text border-b-4 w-full focus:outline-none"
-            >
-              Personal
-            </button>
-            <button
-              @click="tabs = 'group'"
-              v-bind:class="
-                tabs == 'group'
-                  ? 'dark:border-white border-gray-800'
-                  : 'dark:border-gray-800 border-white'
-              "
-              class="text border-b-4 w-full focus:outline-none"
-            >
-              Group
-            </button>
-          </div>
-          <div v-if="tabs === 'personal'" class="flex flex-col space-y-3 mt-3">
-            <template v-for="conver in convers">
-              <router-link
-                :ref="`conver${conver._id}`"
-                v-bind:key="conver._id"
-                :to="{ name: 'chatroom', params: { chatId: conver._id } }"
-                class="flex relative rounded-md flex-row px-3 justify-around h-full items-center"
-              >
-                <div
-                  class="absolute hidden -top-2 -right-2 w-5 h-5 items-center justify-center text-white text-sm bg-red-500 rounded-full"
-                ></div>
-                <div class="w-10 mr-2 h-16 flex items-center justify-center">
-                  <img
-                    class="h-8 w-8 rounded-full"
-                    :src="'http://localhost:3000/' + conver.user.avatar"
-                    alt=""
-                  />
-                </div>
-
-                <div class="w-full h-full flex flex-col justify-center">
-                  <h3 class="text text-lg">{{ conver.user.name }}</h3>
-                </div>
-
-                <div class="h-full w-10 flex items-center justify-center">
-                  <div
-                    v-bind:class="
-                      conver.user.online ? 'bg-green-500' : 'bg-gray-500'
-                    "
-                    class="w-3 h-3 rounded-full"
-                  ></div>
-                </div>
-              </router-link>
-            </template>
-          </div>
-        </div>
-        <!-- chat room -->
-        <div class="relative w-full hidden justify-between">
-          <div>
-            <button class="text flex items-center my-2">
-              <svg
-                class="w-10 h-10"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                  clip-rule="evenodd"
-                ></path>
-              </svg>
-              Back
-            </button>
-          </div>
-          <div class="w-full flex space-x-3 text p-3 bg-gray-900">
-            <img
-              class="h-8 w-8 rounded-full"
-              src="https://scontent.fdps5-1.fna.fbcdn.net/v/t1.0-9/37921553_1447009505400641_8037753745087397888_n.jpg?_nc_cat=102&ccb=2&_nc_sid=09cbfe&_nc_eui2=AeGtQb39GDHyatLPv2WwXJ7mVYo_Q_kCH55Vij9D-QIfnnCT6Fm91wF6uBz_L9QPrKiLJzAxlQ9qRaEa3L5EvcOt&_nc_ohc=ByijnzjSpmMAX_0lnnV&_nc_ht=scontent.fdps5-1.fna&oh=cafea5b87c15c4360e986c1e6fea3a88&oe=60468E5A"
-              alt=""
-            />
-            <h3>Sudana kunyung</h3>
-          </div>
-          <div class="h-full w-full border-gray-900 border-2"></div>
-          <div class="h-16">
-            <input type="text" class="rounded-md" />
-          </div>
-        </div>
-      </div>
+      <Chatlist />
     </div>
   </div>
 </template>
 
 <script>
-import Search from "../../components/input/search";
+import Chatlist from "../../components/chat/chatlist";
+
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { mapGetters } from "vuex";
@@ -213,11 +120,9 @@ export default {
   computed: {
     ...mapGetters(["currentUser"]),
   },
-  created() {
-    this.scrollToBottom();
-  },
+
   components: {
-    Search,
+    Chatlist,
   },
   props: ["chatId"],
   methods: {
@@ -227,15 +132,16 @@ export default {
         this.getMessage(this.pageMessage + 1);
       }
     },
-    typing() {
-      this.socket.emit("typing", {
+    async typing() {
+      await this.socket.emit("typing", {
         id: this.chatId,
         message: this.message,
         socketid: socket.id,
       });
     },
-    sendMessage(e) {
+    async sendMessage(e) {
       e.preventDefault();
+
       if (this.message) {
         this.socket.emit("SEND_MESSAGE", {
           user: this.currentUser._id,
@@ -246,7 +152,6 @@ export default {
         });
       }
       this.message = "";
-      this.scrollToBottom();
     },
     date(timestamp) {
       dayjs.extend(relativeTime);
@@ -280,10 +185,18 @@ export default {
     },
     scrollToBottom() {
       let messageDisplay = this.$refs.chatArea;
-      messageDisplay.scrollTop = messageDisplay.scrollHeight;
+      setTimeout(() => {
+        messageDisplay.scrollTop = messageDisplay.scrollHeight;
+      }, 100);
     },
   },
+  created() {
+    setTimeout(() => {
+      this.scrollToBottom();
+    }, 200);
+  },
   mounted() {
+    this.getMessage(1);
     this.getConver();
     socket.on("roomChat", () => {
       this.getConver();
@@ -292,8 +205,10 @@ export default {
     this.socket.on("MESSAGE", async (data) => {
       this.messages = await [...this.messages, data];
       this.userTyping = false;
+
       this.scrollToBottom();
     });
+
     this.socket.on("typing", async (data) => {
       if (socket.id != data.socketid) {
         if (data.message) {
@@ -302,14 +217,29 @@ export default {
           this.userTyping = false;
         }
       }
+      this.scrollToBottom();
     });
+
     this.user = this.currentUser._id;
     this.getRoom();
-    this.getMessage(1);
-    this.scrollToBottom();
   },
 };
 </script>
 
 <style>
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 20px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
 </style>

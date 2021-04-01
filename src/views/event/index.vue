@@ -23,10 +23,10 @@
                     </div>
                   </div>
                   <div
-                    class="h-44 to-transparent from-white dark:from-gray-800 px-3 bg-gradient-to-t flex justify-end flex-col"
+                    class="h-20 mx-3 px-3 rounded-md my-4 shadow-md bg-white flex justify-end flex-col"
                   >
                     <span class="text-s text-gray-400 font-bold">music</span>
-                    <h3 class="text-lg text font-bold">Doyang dumang</h3>
+                    <h3 class="text-md text font-bold">Doyang dumang</h3>
                   </div>
                 </div>
                 <img
@@ -51,10 +51,10 @@
                     </div>
                   </div>
                   <div
-                    class="h-44 to-transparent from-white dark:from-gray-800 px-3 bg-gradient-to-t flex justify-end flex-col"
+                    class="h-20 mx-3 px-3 rounded-md my-4 shadow-md bg-white flex justify-end flex-col"
                   >
                     <span class="text-s text-gray-400 font-bold">music</span>
-                    <h3 class="text-lg text font-bold">Doyang dumang</h3>
+                    <h3 class="text-md text font-bold">Doyang dumang</h3>
                   </div>
                 </div>
                 <img
@@ -79,10 +79,10 @@
                     </div>
                   </div>
                   <div
-                    class="h-44 to-transparent from-white dark:from-gray-800 px-3 bg-gradient-to-t flex justify-end flex-col"
+                    class="h-20 mx-3 px-3 rounded-md my-4 shadow-md bg-white flex justify-end flex-col"
                   >
                     <span class="text-s text-gray-400 font-bold">music</span>
-                    <h3 class="text-lg text font-bold">Doyang dumang</h3>
+                    <h3 class="text-md text font-bold">Doyang dumang</h3>
                   </div>
                 </div>
                 <img
@@ -112,10 +112,10 @@
                     </div>
                   </div>
                   <div
-                    class="h-44 to-transparent from-white dark:from-gray-800 px-3 bg-gradient-to-t flex justify-end flex-col"
+                    class="h-20 mx-3 px-3 rounded-md my-4 shadow-md bg-white flex justify-end flex-col"
                   >
                     <span class="text-s text-gray-400 font-bold">music</span>
-                    <h3 class="text-lg text font-bold">Doyang dumang</h3>
+                    <h3 class="text-md text font-bold">Doyang dumang</h3>
                   </div>
                 </div>
                 <img
@@ -140,10 +140,10 @@
                     </div>
                   </div>
                   <div
-                    class="h-44 to-transparent from-white dark:from-gray-800 px-3 bg-gradient-to-t flex justify-end flex-col"
+                    class="h-20 mx-3 px-3 rounded-md my-4 shadow-md bg-white flex justify-end flex-col"
                   >
                     <span class="text-s text-gray-400 font-bold">music</span>
-                    <h3 class="text-lg text font-bold">Doyang dumang</h3>
+                    <h3 class="text-md text font-bold">Doyang dumang</h3>
                   </div>
                 </div>
                 <img
@@ -168,10 +168,10 @@
                     </div>
                   </div>
                   <div
-                    class="h-44 to-transparent from-white dark:from-gray-800 px-3 bg-gradient-to-t flex justify-end flex-col"
+                    class="h-20 mx-3 px-3 rounded-md my-4 shadow-md bg-white flex justify-end flex-col"
                   >
                     <span class="text-s text-gray-400 font-bold">music</span>
-                    <h3 class="text-lg text font-bold">Doyang dumang</h3>
+                    <h3 class="text-md text font-bold">Doyang dumang</h3>
                   </div>
                 </div>
                 <img

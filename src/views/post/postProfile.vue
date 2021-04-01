@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-2">
+  <div class="grid grid-cols-2 max-h-screen">
     <div class="h-full w-full flex flex-col">
       <Post
         v-bind:img="'http://localhost:3000/' + post.image"
